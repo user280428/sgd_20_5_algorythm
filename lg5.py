@@ -239,37 +239,38 @@ def lerch():
 
 
 
-        # # report - файл отчета
-        # # добавляем данные в отчет
-        # # проверяю был ли построен конус
-        # # если конус не существует, указываю причину
-        # # если конус существует, вывожу его параметры в отчет
-        # # сохраняем данные в файл Excel (Отчет)
-        # # дополняем данные в существующей таблице, если это не первая итерация
-        # Report = pd.read_excel('Отчет.xlsx')
-        #
-        # if cache == -987654321:
-        #     new_data = pd.DataFrame({
-        #         'Доходы': [f'Отработка конуса не эффективна - {angle}']
-        #     })
-        # elif max(cache)[0] == -123456789:
-        #     new_data = pd.DataFrame({
-        #         'Доходы': ['Контур выходит за границы участка, добыча невозможна']
-        #     })
-        # elif max(cache)[0] < 0:
-        #     new_data = pd.DataFrame({
-        #         'Доходы': [f'Отрицательная прибыль Угол - {angle}']
-        #     })
-        # else:
-        #     new_data = pd.DataFrame({
-        #         'Номер контура': [iteration],
-        #         'Доходы': [revenue],
-        #         'Расходы': [expenses],
-        #         'Прибль': [revenue + expenses],
-        #         'Число блоков': [number_of_blocks/(sub_block**2)],
-        #         'Эффективность': [int((revenue + expenses)/(number_of_blocks/(sub_block**2)))],
-        #         'Журнал': [journal[cache.index(max(cache))]]
-        #     })
-        # updated_report = pd.concat([Report, new_data], ignore_index=True)
-        # updated_report.to_excel('Отчет.xlsx', index=False)
+        # report - файл отчета
+        # добавляем данные в отчет
+        # проверяю был ли построен конус
+        # если конус не существует, указываю причину
+        # если конус существует, вывожу его параметры в отчет
+        # сохраняем данные в файл Excel (Отчет)
+        # дополняем данные в существующей таблице, если это не первая итерация
+        Report = pd.read_excel('Отчет.xlsx')
 
+        if cache == -987654321:
+            new_data = pd.DataFrame({
+                'Доходы': [f'Отработка конуса не эффективна - {angle}']
+            })
+        elif max(cache)[0] == -123456789:
+            new_data = pd.DataFrame({
+                'Доходы': ['Контур выходит за границы участка, добыча невозможна']
+            })
+        elif max(cache)[0] < 0:
+            new_data = pd.DataFrame({
+                'Доходы': [f'Отрицательная прибыль Угол - {angle}']
+            })
+        else:
+            new_data = pd.DataFrame({
+                'Номер контура': [iteration],
+                'Доходы': [revenue],
+                'Расходы': [expenses],
+                'Прибль': [revenue + expenses],
+                'Число блоков': [number_of_blocks/(sub_block**2)],
+                'Эффективность': [int((revenue + expenses)/(number_of_blocks/(sub_block**2)))],
+                'Журнал': [journal[cache.index(max(cache))]]
+            })
+        updated_report = pd.concat([Report, new_data], ignore_index=True)
+        updated_report.to_excel('Отчет.xlsx', index=False)
+
+lerch()

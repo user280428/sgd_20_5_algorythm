@@ -1,15 +1,10 @@
 import openpyxl
 from openpyxl.styles import PatternFill
 import os
+from math import floor
 
 
 
-colours = ['562929', '5d2e2c', '65332e', '6c3830', '743d33',
-           '7b4335', '824936', '894f38', '90553a', '965b3b',
-           '9d623d', 'a3683e', 'a96f40', 'af7641', 'b47d43',
-           'b98544', 'be8c45', 'c39447', 'c79c49', 'cba44b',
-           'cfac4d', 'd2b44f', 'd5bd52', 'd7c555', 'd9ce58',
-           'dbd65c', 'dcdf60', 'dde865', 'def16a', 'defa70']
 
 
 
@@ -28,6 +23,15 @@ def dir_maker():
 
 # Функция
 def list_maker(lst=dir_maker()):
+
+
+    colours = ['562929', '5d2e2c', '65332e', '6c3830', '743d33',
+               '7b4335', '824936', '894f38', '90553a', '965b3b',
+               '9d623d', 'a3683e', 'a96f40', 'af7641', 'b47d43',
+               'b98544', 'be8c45', 'c39447', 'c79c49', 'cba44b',
+               'cfac4d', 'd2b44f', 'd5bd52', 'd7c555', 'd9ce58',
+               'dbd65c', 'dcdf60', 'dde865', 'def16a', 'defa70']
+
 
     # Общий список, в котором будут другие списки с номерами ячеек, по которым мы будем красить ячейки последнего контура
     main_list = []
@@ -49,14 +53,21 @@ def list_maker(lst=dir_maker()):
                     cells.append(cell.coordinate)
         # Добавляем список в общий список, по которому мы будем красить наши ячейки
         main_list.append(cells)
+    ln = len(main_list)
+    ln_c = len(colours)
+    step = ln_c/ln
+    step = floor(step)
+    new_colours = []
+    for i in range(0, ln_c, step):
+        new_colours.append(colours[i])
 
-    return main_list
+    return [main_list, new_colours]
 
 
 
 
 
-def colorer_2(colours, main_list=list_maker()):
+def colorer_2(colours=list_maker()[1], main_list=list_maker()[0]):
 
 
     for i, l in enumerate(main_list):
@@ -77,4 +88,4 @@ def colorer_2(colours, main_list=list_maker()):
 
 dir_maker()
 list_maker(lst=dir_maker())
-colorer_2(colours, main_list=list_maker())
+colorer_2(list_maker()[1], main_list=list_maker()[0])
